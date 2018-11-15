@@ -5,65 +5,37 @@
  */
 package InGame;
 
-import java.io.BufferedInputStream;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
  * @author Davin Yulion
  */
-public class Player extends Character{
-    String Skill;
-
-    public Player(BufferedInputStream bis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public int setSkill(int a){
-        return a;       
-    }
-    
-    @Override
-    public int MoveUp(int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int MoveDown(int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int MoveLeft(int x) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int MoveRight(int x) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int pointY(int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int pointX(int x) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+public class Player extends JLabel{
     
     public Player(){
-        Player p1 = new Player();
-        p1.setNama("Kekey");
-        p1.setSkill(1);
-        
-        Player p2 = new Player();
-        p2.setNama("Wly");
-        p2.setSkill(2);
+        this.setIcon(new ImageIcon(resizeImage("img/zombie.png", 30, 30)));
+        this.setSize(30, 30);
+        this.setLocation(0, 0);
     }
-
-    public void play() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    private Image resizeImage(String url, int w, int h) {
+        Image dimg = null;
+        try {
+            BufferedImage img = ImageIO.read(new File(url));
+            dimg = img.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+        return dimg;
     }
+  
+    
+    
 }

@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -54,11 +53,19 @@ public class Menu extends JFrame {
         String menuUtama = "img/MenuUtama.png";
         Image background = resizeImage(menuUtama, 1500, 900);
         setContentPane(new JLabel(new ImageIcon(background)));
-
+        
+        BlinkedText tt = new BlinkedText();
+        tt.setLayout(null);
+        
+        this.add(tt);
+        Thread t1 = new Thread(tt);
+        t1.start();
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    t1.stop();
+                    tt.setVisible(false);
                     menu_Awal();
                 }
             }
@@ -71,6 +78,8 @@ public class Menu extends JFrame {
         panelAwal.setSize(500, 600);
         panelAwal.setLocation(430, 70);
         panelAwal.setOpaque(false);
+        panelAwal.setLayout(null);
+        
         this.add(panelAwal);
 
         lblLogo.setIcon(new ImageIcon("img/logo.png"));
@@ -92,6 +101,7 @@ public class Menu extends JFrame {
         btnNewGame.setIcon(new ImageIcon("img/newgame.png"));
         btnNewGame.setSize(250, 50);
         btnNewGame.setLocation(130, 200);
+        btnNewGame.setOpaque(false);
         panelAwal.add(btnNewGame);
 
         btnLoadGame.setIcon(new ImageIcon("img/loadgame.png"));
@@ -106,7 +116,6 @@ public class Menu extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.exit(0);
-
             }
 
         });
@@ -116,9 +125,8 @@ public class Menu extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 makeNewGame();
-
             }
-
+ 
         });
 
         //Ke Panel LoadGame
@@ -168,7 +176,6 @@ public class Menu extends JFrame {
         rdnGroup.add(rdnMale);
         rdnGroup.add(rdnFemale);
         
-       
         add(panelNewGame);
         
         repaint();
